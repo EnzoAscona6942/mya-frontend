@@ -1,0 +1,6 @@
+/* App.css cleared for industrial UI redesign */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

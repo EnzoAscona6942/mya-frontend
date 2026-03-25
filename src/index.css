@@ -1,0 +1,69 @@
+:root {
+  --bg: #F5F5F3;
+  --white: #FFFFFF;
+  --sidebar: #0A0A0A;
+  --text: #171717;
+  --textMid: #52525B;
+  --textLight: #A1A1AA;
+  --border: rgba(0,0,0,0.15);
+  --accent: #10B981;
+  --accentHov: #059669;
+  --accentBg: #D1FAE5;
+  --danger: #EF4444;
+  --dangerBg: #FEE2E2;
+  --amber: #F59E0B;
+  --amberBg: #FEF3C7;
+  --blue: #3B82F6;
+  --blueBg: #DBEAFE;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Force sharp corners globally */
+}
+
+body {
+  font-family: 'DM Mono', monospace;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+  -webkit-font-smoothing: auto;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--textLight);
+  border-radius: 0 !important;
+}
+
+button {
+  font-family: inherit;
+  border: 1px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: none !important;
+  transition: all 0.1s linear;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 1px solid var(--text);
+  outline-offset: 1px;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
