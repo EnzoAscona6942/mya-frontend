@@ -55,7 +55,7 @@ export default function CierreCaja() {
         setCajaActiva(data.id);
         localStorage.setItem("cajaId", data.id);
       }
-    } catch (e) {
+    } catch {
       setCajaData(null);
     } finally {
       setLoading(false);

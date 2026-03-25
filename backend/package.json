@@ -1,6 +1,7 @@
 {
   "name": "mya-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend API para MyA Minimercado",
   "main": "src/server.js",
   "scripts": {
@@ -8,7 +9,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "lint": "eslint src/"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
@@ -21,8 +23,10 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@types/supertest": "^7.2.0",
+    "eslint": "^10.1.0",
     "jest": "^30.3.0",
     "nodemon": "^3.1.0",
     "prisma": "^6.19.2",

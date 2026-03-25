@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // We need to import the module fresh for each test
