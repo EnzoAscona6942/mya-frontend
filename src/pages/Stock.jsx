@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -21,7 +21,7 @@ const C = {
   blueBg: '#DBEAFE'
 };
 
-const fmt = (num) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(num || 0);
+const _fmt = (num) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(num || 0);
 
 export default function Stock() {
   const { usuario } = useAuth();
