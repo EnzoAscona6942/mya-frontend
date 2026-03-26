@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect, useContext } from 'react';
 import { api } from '../lib/api';
 import { jwtDecode } from 'jwt-decode';
@@ -24,7 +25,7 @@ export function AuthProvider({ children }) {
                 setUsuario(decoded);
                 localStorage.setItem("token", token);
                 verificarCaja();
-            } catch (e) {
+            } catch {
                 logout();
             }
         } else {

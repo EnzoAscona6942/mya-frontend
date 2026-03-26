@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, react-hooks/globals */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../context/AuthContext';
