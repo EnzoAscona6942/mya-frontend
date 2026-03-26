@@ -10,7 +10,8 @@
     "test:coverage": "jest --coverage",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
