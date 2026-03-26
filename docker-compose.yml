@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # ============================================================
+  # PostgreSQL Database
+  # ============================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: mya_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-mya_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mya_pass123}
+      POSTGRES_DB: ${DB_NAME:-mya_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - mya_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-mya_user} -d ${DB_NAME:-mya_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # Backend API (Express + Prisma)
+  # ============================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mya_backend
+    restart: always
+    ports:
+      - "${BACKEND_PORT:-3001}:3001"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://mya_user:mya_pass123@postgres:5432/mya_db}
+      JWT_SECRET: ${JWT_SECRET:-mya_super_secret_key_2024}
+      PORT: 3001
+      NODE_ENV: ${NODE_ENV:-production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================================
+  # Frontend (Vite + React)
+  # ============================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mya_frontend
+    restart: always
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3001}
+    depends_on:
+      - backend
+
+  # ============================================================
+  # Nginx Reverse Proxy
+  # ============================================================
+  nginx:
+    image: nginx:alpine
+    container_name: mya_nginx
+    restart: always
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - mya_certs:/etc/nginx/certs:ro
+    depends_on:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mya_postgres_data:
+  mya_certs:
+
+# ============================================================
+# Networks
+# ============================================================
+networks:
+  default:
+    name: mya_network

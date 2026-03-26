@@ -197,7 +197,7 @@ function Sidebar({ activeModule, setActiveModule }) {
       {/* Nav */}
       <nav style={{ flex: 1, padding: "0 12px" }}>
         <div style={{ color: "#4B5563", fontSize: 10, fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase", padding: "0 8px 8px" }}>Módulos</div>
-        {NAV_ITEMS.map(({ id, label, icon: Icon }) => {
+        {NAV_ITEMS.map(({ id, label, icon: _icon }) => {
           const active = activeModule === id;
           return (
             <button key={id} onClick={() => setActiveModule(id)} style={{
@@ -439,7 +439,6 @@ function POS() {
   const [modal, setModal] = useState(null); // null | "pago" | "ticket"
   const [ventaExitosa, setVentaExitosa] = useState(null);
   const [flashId, setFlashId] = useState(null);
-  const [scanBuffer, setScanBuffer] = useState("");
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState("");
   const searchRef = useRef(null);
@@ -457,7 +456,7 @@ function POS() {
       agregarAlCarrito(prod);
       setBusqueda("");
       setError("");
-    } catch (err) {
+    } catch {
       setError(`Código "${codigo}" no encontrado`);
       setTimeout(() => setError(""), 2500);
     }

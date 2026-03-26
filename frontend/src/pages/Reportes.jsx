@@ -28,7 +28,7 @@ const C = {
 const fmt = (num) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(num || 0);
 
 export default function Reportes() {
-  const { usuario } = useAuth();
+  useAuth();
   const [loading, setLoading] = useState(true);
   
   // States para Reportes
