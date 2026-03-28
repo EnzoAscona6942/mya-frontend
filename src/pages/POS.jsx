@@ -519,7 +519,7 @@ function POS() {
       const delay = setTimeout(async () => {
         try {
           const res = await fetch(`${API_URL}/productos?busqueda=${encodeURIComponent(busqueda.trim())}`, { headers: getHeaders() });
-          if (res.ok) setProductosFiltrados(await res.json());
+          if (res.ok) setProductosFiltrados((await res.json()).data?.slice(0, 6));
         } catch (e) {
           console.error("Error al buscar productos", e);
         }
@@ -537,7 +537,7 @@ function POS() {
         const res = await fetch(`${API_URL}/productos`, { headers: getHeaders() });
         if (res.ok) {
           const data = await res.json();
-          setFrecuentes(data.slice(0, 6));
+          setFrecuentes(data.data?.slice(0, 6));
         }
       } catch (e) {
         console.error("Error cargando frecuentes", e);
