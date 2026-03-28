@@ -74,7 +74,7 @@ export default function Stock() {
       if (filtros.stockBajo) query.append('stockBajo', 'true');
       
       const data = await api.get(`/productos?${query.toString()}`);
-      setProductos(data);
+      setProductos(data.data);
     } catch (e) {
       console.error(e);
     } finally {
