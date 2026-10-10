@@ -1,0 +1,48 @@
+/* ============================================================
+   POS - ANIMATIONS
+   ============================================================
+   Carries the `@keyframes` and the animation classes the POS
+   components reference. Global resets, the `body` font rule and
+   the scrollbar rules stay owned by `src/index.css`.
+   ============================================================ */
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scanPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(22,163,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+}
+
+.item-enter { animation: slideIn 0.2s ease forwards; }
+
+/* ============================================================
+   HOVER AFFORDANCES MIRRORED ON KEYBOARD FOCUS
+   ============================================================
+   Tabbing through the POS now shows the same feedback as pointing
+   at it, instead of only the `button:focus-visible` outline.
+
+   These rules are the single owner of the hover and focus states
+   for the two button types they name; the redundant
+   `onMouseEnter`/`onMouseLeave` handlers were removed so the state
+   is not written twice by two owners that must stay in sync. Only
+   the resting values remain inline.
+
+   `!important` is required, not decorative: those resting values are
+   style-attribute declarations, and a style-attribute declaration
+   outranks any normal author rule. A plain
+   `.hover-surface:focus-visible { background: ... }` would
+   therefore never apply and the focus state would stay invisible. */
+.hover-surface:hover,
+.hover-surface:focus-visible { background: var(--bg) !important; }
+
+.hover-card:hover,
+.hover-card:focus-visible { border-color: var(--accent) !important; background: var(--accentBg) !important; }
